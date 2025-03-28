@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "FmQKGdUPJH6p7buUTiFFKtVkM+2wPczfvCddUgZPgLs=",
+  "Source": "Inmemory_Collection",
+  "BasePath": "_content/Inmemory_Collection",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

@@ -1,0 +1,6 @@
+@Inmemory_Collection_HostAddress = http://localhost:5242
+
+GET {{Inmemory_Collection_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
