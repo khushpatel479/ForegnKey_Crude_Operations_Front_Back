@@ -50,20 +50,20 @@ namespace Inmemory_Collection.Controllers
                                 CategoryName = c.CategoryName,
                                 ProductId = p.ProductId,
                                 CategoryId = p.CategoryId,
-                                
+
                             }
                             ).ToListAsync();
             return ty;
         }
         [HttpPut("prupd/{id}")]
-        public async Task<ActionResult<ProductModel>> prupd(int id , ProductModel pl)
+        public async Task<ActionResult<ProductModel>> prupd(int id, ProductModel pl)
         {
             var ty = context.products.FirstOrDefault(c => c.ProductId == id);
             ty.ProductName = pl.ProductName;
             ty.ProductPrice = pl.ProductPrice;
             ty.Qty = pl.Qty;
             ty.CategoryId = pl.CategoryId;
-             context.Update(ty);
+            context.Update(ty);
             await context.SaveChangesAsync();
             return Ok("upd" + ty);
         }
@@ -88,13 +88,35 @@ namespace Inmemory_Collection.Controllers
                             ).FirstOrDefaultAsync();
             return Ok(gh);
         }
-[HttpDelete("deleteproduct/{id}")]
+        [HttpDelete("deleteproduct/{id}")]
         public async Task<ActionResult<ProductModel>> del(int id)
         {
-              var ty =  context.products.FirstOrDefault(c => c.ProductId == id);
+            var ty = context.products.FirstOrDefault(c => c.ProductId == id);
             context.products.Remove(ty);
             await context.SaveChangesAsync();
             return Ok("sel");
+        }
+        [HttpGet("getbyname/{name}")]
+        public async Task<ActionResult<IEnumerable<ProductModel>>> getbyname(string name)
+        {
+            var ty = await context.products.Where(c => c.ProductName == name).ToListAsync();
+            var gh = await (from p in context.products
+                            join c in context.categories
+                            on p.CategoryId equals c.CategoryId
+                            where p.ProductName == name
+                            select new
+                            {
+                                ProductName = p.ProductName,
+                                ProductPrice = p.ProductPrice,
+                                Qty = p.Qty,
+                                ProductTotalPrice = p.ProductTotalPrice,
+                                CategoryName = c.CategoryName,
+                                ProductId = p.ProductId,
+                                CategoryId = p.CategoryId
+                            }
+                            ).ToListAsync();
+            return Ok(gh);
+
         }
     }
 }

@@ -36,7 +36,8 @@ namespace Inmemory_Consumer.Controllers
         public async Task<IActionResult> Edit(int id , ProductModel mp)
         {
             var ty = await ser.updpr(mp, id);
-            return View(ty);
+            return RedirectToAction("Index");
+
         }
         [HttpGet]
         public async Task<IActionResult> Details(int id)
@@ -56,6 +57,17 @@ namespace Inmemory_Consumer.Controllers
             var ty = await ser.delpr(id);
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> Search()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Search1(string ProductName)
+        {
+            var ty = await ser.serchbyname(ProductName);
+            return View(ty);
+        }
+
 
     }
 }

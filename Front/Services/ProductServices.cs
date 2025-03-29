@@ -53,6 +53,11 @@ namespace Inmemory_Consumer.Services
             var ty = await client.DeleteAsync($"{baseurl}/deleteproduct/{id}");
             return ty.IsSuccessStatusCode;  
         }
+        public async Task<List<ProductModel>> serchbyname(string name)
+        {
+            var ty = await client.GetFromJsonAsync<List<ProductModel>>($"{baseurl}/getbyname/{name}");
+            return ty;
+        }
        
     }
 }
